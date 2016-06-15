@@ -1,8 +1,15 @@
+# Ignore all dotfiles...
+.*
+
+# except for .gitignore
+!.gitignore
+
 logs
 target
-/.idea
-/.idea_modules
-/.classpath
-/.project
-/.settings
 /RUNNING_PID
+app-2.11/
+project/.sbtserver
+project/.sbtserver.lock
+project/project/
+test-2.11/
+test/resources/
