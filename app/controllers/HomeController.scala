@@ -1,12 +1,15 @@
 package controllers
 
 import javax.inject._
-import play.api._
+
 import play.api.mvc._
 
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
+ *
+ * The Inject tag indicates it's using an injected routes generator.
+ *
  */
 @Singleton
 class HomeController @Inject() extends Controller {
