@@ -1,4 +1,12 @@
 @*
+ * Exaple of retrieving the flash scope in a view
+@()(implicit flash: Flash)
+    ...
+@flash.get("success").getOrElse("Welcome!")
+    ...
+*@
+
+@*
  * This template takes a single argument, a String containing a
  * message to display.
  *@
