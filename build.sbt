@@ -30,7 +30,7 @@ fork in run := true
   * You can configure extra settings for the run command in your build.sbt.
   * These settings won’t be used when you deploy your application.
   *
-  * */
+  */
 //PlayKeys.devSettings := Seq("play.server.http.port" -> "8080")
 
 /**
@@ -41,6 +41,9 @@ fork in run := true
   * will be injected, instead of the controller being injected directly. This allows, for example,
   * prototype controllers, as well as an option for breaking cyclic dependencies.
   *
-  * Enable the injected routes generator.
   */
+// Enable the injected routes generator (Recommended).
 routesGenerator := InjectedRoutesGenerator
+
+// Enable the static routes generator
+//routesGenerator := StaticRoutesGenerator

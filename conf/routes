@@ -1,5 +1,16 @@
 # Routes
 # This file defines all application routes (Higher priority routes first)
+#
+# Route Definition:
+# HTTP method   URI pattern     Action generator
+#
+# HTTP method:
+#    - GET
+#    - PATCH
+#    - POST
+#    - PUT
+#    - DELETE
+#    - HEAD
 # ~~~~
 
 # An example controller showing a sample home page
@@ -11,3 +22,15 @@ GET     /message                    controllers.AsyncController.message
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Route that retrieves a client by Id (path parameter) with typed parameter for type conversion
+# GET     /clients/:id                controllers.Clients.show(id: Long)
+
+# (querystring parameter) Typing the paramenters is optional for String
+# GET     /                         controllers.Application.show(page)
+
+# [Parameters with default values] Pagination links, like /clients?page=3
+# GET     /clients                  controllers.Clients.list(page: Int ?= 1)
+
+# Optional parameters] e.g. /api/list-all? version=3.0
+# GET     /api/list-all             controllers.Api.list(version: Option[String])
