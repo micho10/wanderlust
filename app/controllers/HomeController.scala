@@ -210,19 +210,6 @@ class HomeController @Inject() extends Controller {
     Ok("Saved the content to " + request.body)
   }
 
-  /*
-   * Text based Body Parsers use a "max content length" because they have to load all the content into memory
-   * (default 100 KB). It can be overriden specifying this property in application.conf
-   *
-   * play.http.parser.maxMemoryBuffer = 128K
-   *
-   * For parsers that buffer content on disk (e.g. multipart/form-data), the maximum content (default 10 MB)
-   * is specified using:
-   *
-   * play.http.parser.maxDiskBuffer = 20MB
-   *
-   */
-
   // Override default max length for a given Action (accept only 10KB of data)
   def saveML = Action(parse.text(maxLength = 1024 * 10)) { implicit request =>
     Ok("Got: " + request.body)
