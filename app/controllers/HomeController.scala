@@ -5,6 +5,7 @@ import javax.inject._
 
 import akka.util.ByteString
 import play.api.http.HttpEntity
+import play.api.libs.iteratee.Enumerator
 import play.api.libs.json.JsValue
 import play.api.mvc._
 
@@ -245,5 +246,54 @@ class HomeController @Inject() extends Controller {
   def saveW = Action(parse.maxLength(1024 * 10, storeInUserFile)) { implicit request =>
     Ok("Saved the content to " + request.body)
   }
+
+  /*
+   ****** Streaming content ******
+    The response body is specified using a play.api.libs.iteratee.Enumerator
+
+  def indexz = Action {
+    Result(
+      header = ResponseHeader(200),
+      body = Enumerator("Hello World!")
+      )
+  }
+
+  The header CONTENT_LENGTH must be specified for large files to avoid loading them in memory.
+  This way Play will consume the body enumerator in a lazy way
+
+  def indexz = Action {
+    val file = new java.io.File("/tmp/fileToServe.pdf")
+    val fileContent: Enumerator[Array[Byte]] = Enumerator.fromFile(file)
+
+    Result(
+      header = ResponseHeader(200, Map(CONTENT_LENGTH -> file.length.toString)),
+      body = fileContent
+    )
+
+  }
+
+  Utility method:
+
+  def indexz = Action {
+    Ok.sendFile(
+      // File to send
+      content = new java.io.File("/tmp/fileToServe.pdf"),
+      // File name to display
+      fileName = _ => "termsOfService.pdf"
+    )
+  }
+   */
+
+  /*
+   ****** Chunked Responses for Live Streaming ******
+
+  def indexz = Action {
+    val data = getDataStream
+    val dataContent: Enumerator[Array[Byte]] = Enumerator.fromStream(data)
+
+    // Use of Enumerator is Deprecated. Use an Akka streams Source instead
+    Ok.chunked(dataContent)
+  }
+   */
 
 }
