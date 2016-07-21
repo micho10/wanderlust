@@ -8,6 +8,8 @@ import play.api.http.HttpEntity
 import play.api.libs.json.JsValue
 import play.api.mvc._
 
+import scala.concurrent.Future
+
 /**
  * This controller creates an `Action` to handle HTTP requests to the
  * application's home page.
@@ -41,6 +43,30 @@ class HomeController @Inject() extends Controller {
     )
   }
 */
+
+  /*
+  Actually, all Action are asynchronous. The .async builder is just a commodity to simplify creating actions
+  based on APIs that return a Future, which makes it easier writing non-blocking code.
+
+  // Asynchronous controller
+  def index = Action.async {
+    val futureInt = scala.concurrent.Future { intensiveComputation() }
+    futureInt.map(i => Ok("Got result: " + i))
+  }
+   */
+
+  /*
+  // Handling timeouts with an asynchronous controller
+  def index2 = Action.async {
+    val futureInt = scala.concurrent.Future { intensiveComputation() }
+    // [Deprecated] Use akka.pattern.after(duration, actorSystem.scheduler)(Future(message)) instead of Promise
+    val timeoutFuture = play.api.libs.concurrent.Promise.timeout("Oops", 1.second)
+    val result = Future firstCompletedOf Seq(futureInt, timeoutFuture) map {
+      case i: Int     => Ok("Got result: " + i)
+      case t: String  => InternalServerError(t)
+    }
+  }
+   */
 
   /** :::::::::::::::: Actions ::::::::::::::::
     *
